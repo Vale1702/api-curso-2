@@ -1,13 +1,21 @@
-async function  getTrendingMoviesPreview() {
-    const res = await fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=' + API_KEY);
-    const data = await res.json();
+const api=axios.create({
+    baseURL: 'https://api.themoviedb.org/3/',
+    headers:{
+        'Content-Type':'application/json;charset=utf-8'
+    },
+    params:{
+        'api_key': API_KEY,
+    }
+})
 
+async function  getTrendingMoviesPreview() {
+    const {data} = await api('trending/movie/day');
     const movies = data.results;
 
     movies.forEach(movie => {
         const trendingPreviewMoviesContainer =document.querySelector('#trendingPreview .trendingPreview-movieList')
 
-    const billboard=`
+        const billboard=`
         <div class="movie-container">
             <img
               src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
@@ -20,14 +28,13 @@ async function  getTrendingMoviesPreview() {
 }
 
 async function  getCategoriesPreview() {
-    const res = await fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=' + API_KEY);
-    const data = await res.json();
-
+    const {data} = await api('genre/movie/list');
     const categories = data.genres;
-        categories.forEach(category => {
+
+    categories.forEach(category => {
         const previewCategoriesContainer = document.querySelector('#categoriesPreview .categoriesPreview-list')
 
-    const cat=`
+        const cat=`
           <div class="category-container">
             <h3 class="category-title" id ="id${category.id}">
             ${category.name}
