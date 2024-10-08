@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="./styles/app.css">
     
     <title>MoviAPP</title>
-
 </head>
+
 <body>
     <header id="header" class="header-container">
         <span class="header-arrow inactive"> 🔙 </span>
@@ -19,7 +19,7 @@
     
         <form id="searchForm" class=" header-searchForm">
             <input type="text" placeholder="Encuentra tu peli">
-            <button>🔍</button>
+            <button id="searchBtn">🔍</button>
         </form>
     </header>
     <section id="trendingPreview" class="trendingPreview-container">
@@ -35,7 +35,6 @@
               class="movie-img"
               alt="Nombre de la película"/>
           </div> -->
-    
         </article>
       </section>
     
@@ -46,7 +45,6 @@
           <!-- <div class="category-container">
             <h3 id="id28" class="category-title">Romance</h3>
           </div> -->
-    
         </article>
       </section>
     
@@ -81,7 +79,7 @@
           Wisecracking mercenary Deadpool battles the evil and powerful Cable and other bad guys to save a boy's life.
         </p>
     
-        <article class="categories-list">
+      <article class="categories-list">
           <div class="category-container">
             <h3 id="id28" class="category-title">Romance</h3>
           </div>
@@ -93,9 +91,9 @@
           <div class="category-container">
             <h3 id="id14" class="category-title">Acción</h3>
           </div>
-        </article>
+      </article>
     
-        <article class="relatedMovies-container">
+    <article class="relatedMovies-container">
           <h2 class="relatedMovies-title">Películas similares</h2>
     
           <div class="relatedMovies-scrollContainer">
@@ -106,26 +104,28 @@
                 alt="Nombre de la película"/>
             </div>
             
-            <div class="movie-container">
+          <div class="movie-container">
               <img
                 src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
                 class="movie-img"
                 alt="Nombre de la película"/>
-            </div>
-            
-            <div class="movie-container">
-              <img
-                src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-                class="movie-img"
-                alt="Nombre de la película"/>
-            </div>
           </div>
-        </article>
+            
+          <div class="movie-container">
+              <img
+                src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
+                class="movie-img"
+                alt="Nombre de la película"/>
+          </div>
+        </div>
+      </article>
       </section>
     
       <footer>Hecho con amor, Mizuky</footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./src/apik.js"></script>
+    <script src="./src/nodes.js"></script>
     <script src="./src/main.js"></script>
+    <script src="./src/navigation.js"></script>
 </body>
 </html>

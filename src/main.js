@@ -13,16 +13,15 @@ async function  getTrendingMoviesPreview() {
     const movies = data.results;
 
     movies.forEach(movie => {
-        const trendingPreviewMoviesContainer =document.querySelector('#trendingPreview .trendingPreview-movieList')
+        const trendingMoviePreviewList =document.querySelector('#trendingPreview .trendingPreview-movieList')
 
         const billboard=`
         <div class="movie-container">
             <img
-              src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
-              class="movie-img"
+              src="https://image.tmdb.org/t/p/w300/${movie.poster_path}" class="movie-img"
               alt=${movie.title}/>
-          </div> `
-          trendingPreviewMoviesContainer.innerHTML += billboard
+        </div> `
+        trendingMoviePreviewList.innerHTML += billboard
     });
     console.log( {data , movies});
 }
@@ -32,17 +31,15 @@ async function  getCategoriesPreview() {
     const categories = data.genres;
 
     categories.forEach(category => {
-        const previewCategoriesContainer = document.querySelector('#categoriesPreview .categoriesPreview-list')
+        const categoriesPreviewList = document.querySelector('#categoriesPreview .categoriesPreview-list')
 
         const cat=`
-          <div class="category-container">
+        <div class="category-container">
             <h3 class="category-title" id ="id${category.id}">
             ${category.name}
             </h3>
-          </div>`
-          previewCategoriesContainer.innerHTML += cat
+        </div>`
+          categoriesPreviewList.innerHTML += cat
     });
 }
 
-getTrendingMoviesPreview();
-getCategoriesPreview();

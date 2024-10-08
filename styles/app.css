@@ -149,6 +149,7 @@ button {
   cursor: pointer;
   display: inline-block;
 }
+
 .header-arrow--white {
   color: var(--blue-light-1);
 }
@@ -344,8 +345,9 @@ button {
 
 /* Footer */
 footer {
-  background-color: var(--blue-medium-3);
-  color: var(--blue-light-2);
+  /* background-color: var(--blue-medium-3); */
+  background: linear-gradient(180deg, rgba(20, 141, 223, 0.973) 0%, rgba(2, 9, 65, 0) 72.92%);
+  color: var(--blue-dark-1);
   text-align: center;
   height: 46px;
   display: flex;
