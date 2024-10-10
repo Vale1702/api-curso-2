@@ -5,41 +5,69 @@ const api=axios.create({
     },
     params:{
         'api_key': API_KEY,
+        'language': 'es',
     }
 })
 
-async function  getTrendingMoviesPreview() {
-    const {data} = await api('trending/movie/day');
-    const movies = data.results;
+//Utils
 
+function createMovies (movies, container) {
+    let billboard='';
     movies.forEach(movie => {
-        const trendingMoviePreviewList =document.querySelector('#trendingPreview .trendingPreview-movieList')
-
-        const billboard=`
+        billboard +=`
         <div class="movie-container">
             <img
               src="https://image.tmdb.org/t/p/w300/${movie.poster_path}" class="movie-img"
-              alt=${movie.title}/>
+              alt="${movie.title}"
+              loading="lazy"    />
         </div> `
-        trendingMoviePreviewList.innerHTML += billboard
     });
-    console.log( {data , movies});
+    container.innerHTML=billboard;
 }
 
-async function  getCategoriesPreview() {
-    const {data} = await api('genre/movie/list');
-    const categories = data.genres;
-
+function createCategories(categories, container){
+    container.innerHTML="";
+    let cat=''; //construye todo el HTML de las categorías
     categories.forEach(category => {
-        const categoriesPreviewList = document.querySelector('#categoriesPreview .categoriesPreview-list')
-
-        const cat=`
+         cat +=`
         <div class="category-container">
             <h3 class="category-title" id ="id${category.id}">
             ${category.name}
             </h3>
         </div>`
-          categoriesPreviewList.innerHTML += cat
+        });
+        //Añade todo el HTML al DOM
+         container.innerHTML = cat;
+    
+        // Selecciona todos los elementos recién añadidos y agrega los eventos
+    categories.forEach(category => {
+        const categoryTitle  = document.getElementById(`id${category.id}`);
+        categoryTitle.addEventListener('click', () => {
+            location.hash=`#category=${category.id}-${category.name} `;
+        })
     });
+
+}
+//Llamados a la API
+async function  getTrendingMoviesPreview() {
+    const {data} = await api('trending/movie/day');
+    const movies = data.results;
+    createMovies(movies, trendingMoviePreviewList);
+}
+
+async function  getCategoriesPreview() {
+    const {data} = await api('genre/movie/list');
+    const categories = data.genres;
+    createCategories(categories, categoriesPreviewList)
+}
+
+async function  getMoviesByCategory(id) {
+    const {data} = await api('discover/movie',{
+        params:{
+            with_genres : id,
+        },
+    });
+    const movies = data.results;
+    createMovies(movies, genericSection);
 }
 

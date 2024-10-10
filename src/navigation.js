@@ -52,9 +52,11 @@ function homePage() {
     genericSection.classList.add('inactive');
     movieDetailSection.classList.add('inactive');
 
-
-    getTrendingMoviesPreview();
-    getCategoriesPreview();
+    const childrenCategoriesPreview = Array.from(categoriesPreviewList.children);
+    if(!childrenCategoriesPreview.length){
+        getTrendingMoviesPreview();
+        getCategoriesPreview();
+    }
 }
 
 function trendsPage() {
@@ -123,5 +125,12 @@ function categoriesPage() {
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
+
+    //['#category', 'id-name'] 
+    const [_, categoryData] = location.hash.split('=');
+    const [categoryId, categoryName]= categoryData.split('-');
+    headerCategoryTitle.innerHTML= decodeURIComponent( categoryName);
+    window.scroll(0,0);
+    getMoviesByCategory(categoryId);
 }
 
