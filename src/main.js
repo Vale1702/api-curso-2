@@ -15,14 +15,21 @@ function createMovies (movies, container) {
     let billboard='';
     movies.forEach(movie => {
         billboard +=`
-        <div class="movie-container">
+        <div class="movie-container" data-id="${movie.id}">
             <img
               src="https://image.tmdb.org/t/p/w300/${movie.poster_path}" class="movie-img"
               alt="${movie.title}"
               loading="lazy"    />
-        </div> `
+        </div> `        
     });
     container.innerHTML=billboard;
+    const movieContainers= container.querySelectorAll('.movie-container');
+    movieContainers.forEach(movieContainers=>{
+        movieContainers.addEventListener('click', (event)=>{
+            const movieId= movieContainers.getAttribute('data-id');
+            location.hash='#movie='+ movieId;
+        });
+    });
 }
 
 function createCategories(categories, container){
@@ -70,4 +77,22 @@ async function  getMoviesByCategory(id) {
     const movies = data.results;
     createMovies(movies, genericSection);
 }
+async function  getMoviesBySearch(query) {
+    const {data} = await api('search/movie',{
+        params:{
+            query,
+        },
+    });
+    const movies = data.results;
+    createMovies(movies, genericSection);
+}
 
+async function  getTrendingMovies() {
+    const {data} = await api('trending/movie/day');
+    const movies = data.results;
+    createMovies(movies, genericSection);
+}
+async function  getMovieById(id) {
+    const {data: movie} = await api('credit/'+id);
+    movieDetailTitle
+}
