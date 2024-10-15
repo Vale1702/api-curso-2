@@ -26,13 +26,12 @@
 }
 
 html {
-  background:var(--blue-medium-3);
-
+  background:linear-gradient(90deg, rgba(7, 127, 199, 1) 19.27%, rgba(0, 0, 0) 104.17%);
 }
 
 body {
-  background-color: var(--blue-light-1);
-  color: var(--blue-dark-2);
+  background:linear-gradient(180deg, rgb(10, 157, 248) 19.27%, rgba(0, 0, 0) 104.17%);
+  /* background-color: var(--blue-medium-3); */
   font-family: var(--font-family-text);
   font-weight: var(--font-weight-text1);
   font-size: 16px;
@@ -61,7 +60,7 @@ h2 {
 }
 
 h3 {
-  color: var(--blue-dark-2);
+  color: var(--blue-medium-1);
   font-weight: var(--font-weight-text2);
   font-size: 16px;
 }
@@ -125,7 +124,7 @@ button {
 }
 
 .header-container--long {
-  background-image: url('https://pics.filmaffinity.com/Deadpool-777527803-large.jpg');
+  /* background-image: url('https://pics.filmaffinity.com/Deadpool-777527803-large.jpg'); */
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 19.27%, rgba(0, 0, 0, 0) 29.17%), url(https://pics.filmaffinity.com/Deadpool-777527803-large.jpg);
   background-size: cover !important;
   height: 480px;
@@ -275,7 +274,6 @@ button {
   width: 100%;
 }
 
-
 /* Movie Detail */
 .movieDetail-container {
   border-top-left-radius: 16px;
@@ -345,9 +343,8 @@ button {
 
 /* Footer */
 footer {
-  /* background-color: var(--blue-medium-3); */
-  background: linear-gradient(180deg, rgba(20, 141, 223, 0.973) 0%, rgba(2, 9, 65, 0) 72.92%);
-  color: var(--blue-dark-1);
+  background:linear-gradient(180deg, rgb(10, 157, 248) -0.73%, rgba(0, 0, 0) 104.17%);
+  color: var(--blue-medium-1);
   text-align: center;
   height: 46px;
   display: flex;
