@@ -104,6 +104,23 @@ button {
 .movie-container {
   cursor: pointer;
 }
+.movie-container--loading{
+  background:linear-gradient(90deg, rgb(120, 154, 175) 19.27%, rgb(165, 164, 240) 104.17%);
+  border-radius: 8px;
+  height: 225px;
+  min-height: 225px;
+  max-height: 225px;
+  width: 150px;
+  max-width: 150px;
+  margin-bottom: 15px;
+  animation: loading-skeleton infinite 1.5s;
+}
+.movie-container--loading:nth-child(2){
+  animation-delay: .2s;
+}
+.movie-container--loading:nth-child(3){
+  animation-delay: .4s;
+}
 
 .movie-img {
   border-radius: 8px;
@@ -116,6 +133,24 @@ button {
   position: relative;
   flex-wrap: wrap;
 }
+.category-container--loading{
+  background:linear-gradient(90deg, rgb(120, 154, 175) 19.27%, rgb(165, 164, 240) 104.17%);
+  border-radius: 8px;
+  height: 25px;
+  min-height: 25px;
+  max-width: 25px;
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+  margin-bottom: 15px;
+  animation: loading-skeleton infinite 1.5s;
+}
+.category-container--loading:nth-child(2){
+  animation-delay: .2s;
+}
+.category-container--loading:nth-child(3){
+  animation-delay: .4s;
+}
 
 
 /* Header */
@@ -125,7 +160,7 @@ button {
 
 .header-container--long {
   /* background-image: url('https://pics.filmaffinity.com/Deadpool-777527803-large.jpg'); */
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 19.27%, rgba(0, 0, 0, 0) 29.17%), url(https://pics.filmaffinity.com/Deadpool-777527803-large.jpg);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 19.27%, rgba(0, 0, 0, 0) 29.17%);
   background-size: cover !important;
   height: 480px;
   position: fixed;
@@ -340,9 +375,11 @@ button {
   max-height: 187.5px;
 }
   
-
 /* Footer */
 footer {
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background:linear-gradient(180deg, rgb(10, 157, 248) -0.73%, rgba(0, 0, 0) 104.17%);
   color: var(--blue-medium-1);
   text-align: center;
@@ -352,8 +389,17 @@ footer {
   align-items: center;
 }
 
-
 /* Navigation */
 .inactive {
   display: none;
 }
+
+@keyframes loading-skeleton {
+  0%, 100% {
+    opacity: 100%;
+  }
+  50% {
+   opacity: 0%;
+  }
+} 
+

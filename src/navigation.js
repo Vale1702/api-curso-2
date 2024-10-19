@@ -1,3 +1,4 @@
+
 searchFormBtn.addEventListener('click', () => {
     location.hash='#search='+ searchFormInput.value;
     searchFormInput.value='';
@@ -112,7 +113,7 @@ function movieDetailsPage() {
     console.log('Movies!!');
 
     headerSection.classList.add('header-container--long');
-    // headerSection.style.background = ' ';
+    headerSection.style.background = '';
     arrowBtn.classList.remove('inactive');
     arrowBtn.classList.add('header-arrow--white')
     headerTitle.classList.add('inactive');
@@ -133,7 +134,7 @@ function categoriesPage() {
     console.log('Categories!!');
 
     headerSection.classList.remove('header-container--long');
-    headerSection.style.background = ' ';
+    headerSection.style.background = '';
     arrowBtn.classList.remove('inactive');
     arrowBtn.classList.add('header-arrow--white');
     headerTitle.classList.add('inactive');
@@ -153,4 +154,3 @@ function categoriesPage() {
     window.scroll(0,0);
     getMoviesByCategory(categoryId);
 }
-

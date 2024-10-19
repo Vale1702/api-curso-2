@@ -114,6 +114,6 @@ async function  getRelatesMovieById(id) {
     const relatedMovies=data.results;
 
     createMovies(relatedMovies, relatedMoviesContainer);
-    // window.scroll(0,0);
+    window.scroll(0,0);
 }
 
