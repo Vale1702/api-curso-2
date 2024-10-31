@@ -1,3 +1,5 @@
+let page = 1;
+let infiniteScroll;
 
 searchFormBtn.addEventListener('click', () => {
     location.hash='#search='+ searchFormInput.value;
@@ -19,11 +21,16 @@ arrowBtn.addEventListener('click', () =>{
 
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
+window.addEventListener('scroll', infiniteScroll, false);
 
 function navigator() {
     console.log({ location });
     // Definimos un objeto 'routes' donde cada clave representa una parte del hash
     // y su valor es el mensaje que queremos mostrar en la consola.
+    if(infiniteScroll){
+        window.removeEventListener('scroll', infiniteScroll, {passive:false});
+        infiniteScroll = undefined;
+    }
     const routes = {
         '#trends': trendsPage,
         '#search=': searchPage,
@@ -39,6 +46,9 @@ function navigator() {
             page();
             return;
         } 
+        if(infiniteScroll){
+            window.addEventListener('scroll', infiniteScroll, {passive:false});
+        }
     }
     homePage();
 }
@@ -86,6 +96,7 @@ function trendsPage() {
     movieDetailSection.classList.add('inactive');
     headerCategoryTitle.innerHTML= 'Tendencias';
     getTrendingMovies();
+    infiniteScroll = showTrendingPage;
 }
 
 function searchPage() {
