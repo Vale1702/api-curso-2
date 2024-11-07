@@ -21,7 +21,7 @@ arrowBtn.addEventListener('click', () =>{
 
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
-window.addEventListener('scroll', infiniteScroll, false);
+window.addEventListener('scroll', showTrendingPage, false);
 
 function navigator() {
     console.log({ location });

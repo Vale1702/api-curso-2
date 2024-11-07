@@ -37,7 +37,7 @@ function createMovies(movies, container, { lazyLoad = false, clean = true } = {}
     billboard += `
       <div class="movie-container" data-id="${movie.id}">
         <img
-          src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
+          data-src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
           class="movie-img lazy-image"
           alt="${movie.title}" />
       </div>`;
