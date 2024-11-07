@@ -48,10 +48,9 @@ function navigator() {
         passive:false
     });
     }
+
     homePage();
-   
-   // Cargar la página de inicio si no hay coincidencias
-} 
+   } 
 // Funciones para cada evento
 function homePage() {
     console.log('Home!!');

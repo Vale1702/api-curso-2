@@ -18,8 +18,8 @@ const lazyLoader = new IntersectionObserver((entries) => {
       const img = entry.target;
       img.src = img.getAttribute('data-src'); 
       lazyLoader.unobserve(img); // Deja de observar una vez cargada.
-      console.log(`Imagen cargada: ${img.src}`);
     }
+    console.log(`Imagen cargada: ${img.src}`);
   });
 }, {
   root: null,
@@ -37,8 +37,8 @@ function createMovies(movies, container, { lazyLoad = false, clean = true } = {}
     billboard += `
       <div class="movie-container" data-id="${movie.id}">
         <img
-          data-src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
-          class="movie-img lazy-image"
+          src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
+          class="movie-img lazy-img"
           alt="${movie.title}" />
       </div>`;
   });
@@ -54,11 +54,11 @@ function createMovies(movies, container, { lazyLoad = false, clean = true } = {}
   });
 
   if (lazyLoad) {
-    const images = container.querySelectorAll('.lazy-image');
-    images.forEach((img) => lazyLoader.observe(img));
-  }
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+      lazyLoader;
+    }
 }
-
 
 function createCategories(categories, container){
     container.innerHTML="";
@@ -73,7 +73,6 @@ function createCategories(categories, container){
         });
         //Añade todo el HTML al DOM
          container.innerHTML = cat;
-    
         // Selecciona todos los elementos recién añadidos y agrega los eventos
     categories.forEach(category => {
         const categoryTitle  = document.getElementById(`id${category.id}`);
@@ -114,7 +113,7 @@ async function  getMoviesBySearch(query) {
     createMovies(movies, genericSection);
 }
 
-async function  getTrendingMovies(page =1) {
+async function  getTrendingMovies() {
     const {data} = await api('trending/movie/day', {
         params:{
             page,
@@ -123,7 +122,6 @@ async function  getTrendingMovies(page =1) {
     const movies = data.results;
 
     createMovies(movies, genericSection, { lazyLoad: true, clean: true });
-
     // const btnLoadMore= document.createElement('button');
     // btnLoadMore.innerText='Cargar más';
     // btnLoadMore.addEventListener('click',()=>{
@@ -144,7 +142,7 @@ async function showTrendingPage() {
     const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
     
     if (scrollIsBottom) {
-        page++ ;
+        page++;
         const { data } = await api('trending/movie/day', {
             params: {
                 page,
