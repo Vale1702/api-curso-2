@@ -7,16 +7,16 @@ searchFormBtn.addEventListener('click', () => {
 });
 
 trendingBtn.addEventListener('click', () => {
-    location.hash='#trends';
+    location.hash='#trends=';
 });
 
 arrowBtn.addEventListener('click', () =>{
-    if (history.length > 1) {
-        history.back()
-      } else {
-        location.hash = "#home"
-      };
-    // history.back();
+    // if (history.length > 1) {
+    //     history.back()
+    //   } else {
+    //     location.hash = "#home"
+    //   };
+    history.back();
 });
 
 window.addEventListener('DOMContentLoaded', navigator, false);
@@ -25,34 +25,33 @@ window.addEventListener('scroll', infiniteScroll, false);
 
 function navigator() {
     console.log({ location });
-    // Definimos un objeto 'routes' donde cada clave representa una parte del hash
-    // y su valor es el mensaje que queremos mostrar en la consola.
     if(infiniteScroll){
-        window.removeEventListener('scroll', infiniteScroll, {passive:false});
-        infiniteScroll = undefined;
+        window.removeEventListener('scroll',{
+            passive:false
+        });
     }
+
     const routes = {
-        '#trends': trendsPage,
+        '#trends=': trendsPage,
         '#search=': searchPage,
         '#movie=': movieDetailsPage,
-        '#category=':categoriesPage,
+        '#category=': categoriesPage,
         '#home=': homePage
     };
-    // Iteramos sobre las claves y valores del objeto 'routes'
+
     for (const [key, page] of Object.entries(routes)) {
-        // Verificamos si el hash de la ubicación actual comienza con una de las claves
         if (location.hash.startsWith(key)) {
-            // Si coincide, mostramos el valor correspondiente (mensaje) en la consola
             page();
             return;
-        } 
-        if(infiniteScroll){
-            window.addEventListener('scroll', infiniteScroll, {passive:false});
         }
+         window.addEventListener('scroll',{
+        passive:false
+    });
     }
     homePage();
-}
-
+   
+   // Cargar la página de inicio si no hay coincidencias
+} 
 // Funciones para cada evento
 function homePage() {
     console.log('Home!!');

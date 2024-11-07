@@ -10,55 +10,55 @@ const api=axios.create({
 })
 
 //Utils
-const lazyLoader = () => {
-    const images = document.querySelectorAll('img[data-src]'); // Selecciona todas las imágenes con el atributo data-src
+const images = document.querySelectorAll('[data-src]');
 
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          img.src = img.getAttribute('data-src'); // Reemplaza el data-src por el src real
-          img.removeAttribute('data-src'); // Opcional: eliminar el atributo data-src después de que se ha cargado la imagen
-          observer.unobserve(img); // Deja de observar la imagen ya que se ha cargado
-
-        }
-      });
-    });
-  
-    images.forEach(image => {
-      imageObserver.observe(image);
-    });
-  };
-
-function createMovies (movies, container,
-    {lazyLoad = false, 
-     clean = true,} = {},  ) {
-    if(clean){
-        container.innerHTML="";
+const lazyLoader = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const img = entry.target;
+      img.src = img.getAttribute('data-src'); 
+      lazyLoader.unobserve(img); // Deja de observar una vez cargada.
+      console.log(`Imagen cargada: ${img.src}`);
     }
+  });
+}, {
+  root: null,
+  threshold: 0.1
+});
 
-    let billboard='';
-    movies.forEach(movie => {
-        if(!movie.poster_path)return;
-        billboard +=`
-        <div class="movie-container" data-id="${movie.id}">
-            <img
-              data-src="https://image.tmdb.org/t/p/w300/${movie.poster_path}" class="movie-img"
-              alt="${movie.title}" />
-        </div> `        
-    });
-    container.innerHTML=billboard;
+function createMovies(movies, container, { lazyLoad = false, clean = true } = {}) {
+  if (clean) {
+    container.innerHTML = "";
+  }
 
-    const movieContainers = container.querySelectorAll('.movie-container');
-    movieContainers.forEach(movieContainer=>{
-        movieContainer.addEventListener('click', (event)=>{
-            const movieId= movieContainer.getAttribute('data-id');
-            location.hash='#movie='+ movieId;
-        });
+  let billboard = '';
+  movies.forEach(movie => {
+    if (!movie.poster_path) return;
+    billboard += `
+      <div class="movie-container" data-id="${movie.id}">
+        <img
+          src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
+          class="movie-img lazy-image"
+          alt="${movie.title}" />
+      </div>`;
+  });
+
+  container.innerHTML = billboard;
+
+  const movieContainers = container.querySelectorAll('.movie-container');
+  movieContainers.forEach(movieContainer => {
+    movieContainer.addEventListener('click', () => {
+      const movieId = movieContainer.getAttribute('data-id');
+      location.hash = '#movie=' + movieId;
     });
-    // Llama a la función LazyLoader para observar las imágenes recién agregadas
-     lazyLoader();
+  });
+
+  if (lazyLoad) {
+    const images = container.querySelectorAll('.lazy-image');
+    images.forEach((img) => lazyLoader.observe(img));
+  }
 }
+
 
 function createCategories(categories, container){
     container.innerHTML="";
@@ -134,36 +134,40 @@ async function  getTrendingMovies(page =1) {
 }
 async function showTrendingPage() {
     const {
-      scrollTop,
-      scrollHeight,
-      clientHeight
+        scrollTop,
+        scrollHeight,
+        clientHeight
     } = document.documentElement;
     
-    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
-  
-    if (scrollIsBottom) {
-      page++;
-      const { data } = await api('trending/movie/day', {
-        params: {
-          page,
-        },
-      });
-      const movies = data.results;
-  
-      createMovies(
-        movies,
-        genericSection,
-        { lazyLoad: true, clean: false },
-      );
-    }
-    console.log(showTrendingPage);
-  
-    // const btnLoadMore = document.createElement('button');
-    // btnLoadMore.innerText = 'Cargar más';
-    // btnLoadMore.addEventListener('click', getPaginatedTrendingMovies);
-    // genericSection.appendChild(btnLoadMore);
-  }
+    console.log( scrollTop, scrollHeight, clientHeight);
 
+    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+    
+    if (scrollIsBottom) {
+        page++ ;
+        const { data } = await api('trending/movie/day', {
+            params: {
+                page,
+            },
+        });
+        const movies = data.results;
+        
+        createMovies(
+            movies,
+            genericSection,
+            { lazyLoad: true, clean: false },
+        );
+        console.log('Scroll is Buttom', scrollIsBottom);
+    }
+    // console.log(showTrendingPage);
+
+//     // const btnLoadMore = document.createElement('button');
+//     // btnLoadMore.innerText = 'Cargar más';
+//     // btnLoadMore.addEventListener('click', showTrendingPage);
+//     // genericSection.appendChild(btnLoadMore);
+//     // console.log('Carga de nuevo el scroll')
+// }
+}
 async function  getMovieById(id) {
     const {data: movie} = await api('movie/' + id);
     const movieImgUrl='https://image.tmdb.org/t/p/w500' + movie.poster_path;
