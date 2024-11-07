@@ -8,12 +8,12 @@ trendingBtn.addEventListener('click', () => {
 });
 
 arrowBtn.addEventListener('click', () =>{
-    if (history.length > 1) {
-        history.back()
-      } else {
-        location.hash = "#home"
-      };
-    // history.back();
+    // if (history.length > 1) {
+    //     history.back()
+    //   } else {
+    //     location.hash = "#home"
+    //   };
+    history.back();
 });
 
 window.addEventListener('DOMContentLoaded', navigator, false);
