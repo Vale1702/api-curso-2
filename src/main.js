@@ -10,23 +10,21 @@ const api=axios.create({
 })
 
 //Utils
-const images = document.querySelectorAll('[data-src]');
 
-const lazyLoader = new IntersectionObserver((entries) => {
+const lazyLoader = new IntersectionObserver(entries => {
   entries.forEach((entry) => {
+    //   console.log(entry.target.setAttribute);
     if (entry.isIntersecting) {
-      const img = entry.target;
-      img.src = img.getAttribute('data-src'); 
-      lazyLoader.unobserve(img); // Deja de observar una vez cargada.
+     const img = entry.target;
+      img.src = img.getAttribute('data-src'); // Asigna el atributo 'src' real
+    //   img.removeAttribute('data-src'); // Elimina 'data-src' para evitar futuras observaciones
+      lazyLoader.unobserve(img); // Deja de observar la imagen cargada
+      console.log(`Imagen cargada: ${img.src}`);
     }
-    console.log(`Imagen cargada: ${img.src}`);
-  });
-}, {
-  root: null,
-  threshold: 0.1
+ });
 });
 
-function createMovies(movies, container, { lazyLoad = false, clean = true } = {}) {
+function createMovies(movies, container, {lazyLoad = true, clean = true } = {}) {
   if (clean) {
     container.innerHTML = "";
   }
@@ -37,8 +35,8 @@ function createMovies(movies, container, { lazyLoad = false, clean = true } = {}
     billboard += `
       <div class="movie-container" data-id="${movie.id}">
         <img
-          src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
-          class="movie-img lazy-img"
+         data-src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
+          class="movie-img"
           alt="${movie.title}" />
       </div>`;
   });
@@ -54,10 +52,16 @@ function createMovies(movies, container, { lazyLoad = false, clean = true } = {}
   });
 
   if (lazyLoad) {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-      lazyLoader;
-    }
+    const images = container.querySelectorAll('.movie-img');
+    images.forEach((img) => {
+      // Observar cada imagen para cargarla perezosamente
+      lazyLoader.observe(img);
+    });
+    console.log(images);
+}
+// Reiniciar scroll al tope
+document.body.scrollTop = 0;
+document.documentElement.scrollTop = 0;
 }
 
 function createCategories(categories, container){
@@ -138,7 +142,6 @@ async function showTrendingPage() {
     } = document.documentElement;
     
     console.log( scrollTop, scrollHeight, clientHeight);
-
     const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
     
     if (scrollIsBottom) {

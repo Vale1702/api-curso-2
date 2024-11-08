@@ -27,10 +27,9 @@ function navigator() {
     console.log({ location });
     if(infiniteScroll){
         window.removeEventListener('scroll',{
-            passive:false
+            passive:true
         });
     }
-
     const routes = {
         '#trends=': trendsPage,
         '#search=': searchPage,
@@ -44,13 +43,10 @@ function navigator() {
             page();
             return;
         }
-         window.addEventListener('scroll',{
-        passive:false
-    });
     }
-
     homePage();
    } 
+
 // Funciones para cada evento
 function homePage() {
     console.log('Home!!');
@@ -61,7 +57,6 @@ function homePage() {
     headerTitle.classList.remove('inactive');
     headerCategoryTitle.classList.add('inactive');
     searchForm.classList.remove('inactive');
-
     trendingPreviewSection.classList.remove('inactive');
     categoriesPreviewSection.classList.remove('inactive');
     genericSection.classList.add('inactive');
@@ -87,7 +82,6 @@ function trendsPage() {
     headerTitle.classList.add('inactive');
     headerCategoryTitle.classList.remove('inactive');
     searchForm.classList.add('inactive');
-
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
@@ -107,7 +101,6 @@ function searchPage() {
     headerTitle.classList.add('inactive');
     headerCategoryTitle.classList.add('inactive');
     searchForm.classList.remove('inactive');
-
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
@@ -128,7 +121,6 @@ function movieDetailsPage() {
     headerTitle.classList.add('inactive');
     headerCategoryTitle.classList.add('inactive');
     searchForm.classList.add('inactive');
-
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.add('inactive');
@@ -149,7 +141,6 @@ function categoriesPage() {
     headerTitle.classList.add('inactive');
     headerCategoryTitle.classList.remove('inactive');
     searchForm.classList.add('inactive');
-
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
