@@ -24,7 +24,7 @@ const lazyLoader = new IntersectionObserver(entries => {
  });
 });
 
-function createMovies(movies, container, {lazyLoad = true, clean = true } = {}) {
+function createMovies(movies, container, {lazyLoad = true, clean = true } = {},) {
   if (clean) {
     container.innerHTML = "";
   }
@@ -51,7 +51,7 @@ function createMovies(movies, container, {lazyLoad = true, clean = true } = {}) 
     });
   });
 
-  if (lazyLoad) {
+if (lazyLoad) {
     const images = container.querySelectorAll('.movie-img');
     images.forEach((img) => {
       // Observar cada imagen para cargarla perezosamente
@@ -59,9 +59,9 @@ function createMovies(movies, container, {lazyLoad = true, clean = true } = {}) 
     });
     console.log(images);
 }
-// Reiniciar scroll al tope
-document.body.scrollTop = 0;
-document.documentElement.scrollTop = 0;
+ // Reiniciar scroll al tope
+ document.body.scrollTop = 0;
+ document.documentElement.scrollTop = 0;
 }
 
 function createCategories(categories, container){
@@ -107,6 +107,7 @@ async function  getMoviesByCategory(id) {
     const movies = data.results;
     createMovies(movies, genericSection, true);
 }
+
 async function  getMoviesBySearch(query) {
     const {data} = await api('search/movie',{
         params:{
@@ -134,6 +135,7 @@ async function  getTrendingMovies() {
     // });
     // genericSection.appendChild(btnLoadMore);    
 }
+
 async function showTrendingPage() {
     const {
         scrollTop,
@@ -160,8 +162,8 @@ async function showTrendingPage() {
         );
         console.log('Scroll is Buttom', scrollIsBottom);
     }
-    // console.log(showTrendingPage);
 
+    // console.log(showTrendingPage);
 //     // const btnLoadMore = document.createElement('button');
 //     // btnLoadMore.innerText = 'Cargar más';
 //     // btnLoadMore.addEventListener('click', showTrendingPage);
@@ -169,6 +171,7 @@ async function showTrendingPage() {
 //     // console.log('Carga de nuevo el scroll')
 // }
 }
+
 async function  getMovieById(id) {
     const {data: movie} = await api('movie/' + id);
     const movieImgUrl='https://image.tmdb.org/t/p/w500' + movie.poster_path;
@@ -185,6 +188,7 @@ async function  getMovieById(id) {
     createCategories(movie.genres, movieDetailsCategoriesList);
     getRelatesMovieById(id);
 }
+
 async function  getRelatesMovieById(id) {
     const {data} = await api(`movie/${id}/similar`);
     const relatedMovies=data.results;
@@ -192,4 +196,3 @@ async function  getRelatesMovieById(id) {
     createMovies(relatedMovies, relatedMoviesContainer);
     window.scroll(0,0);
 }
-

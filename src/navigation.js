@@ -21,14 +21,13 @@ arrowBtn.addEventListener('click', () =>{
 
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
-window.addEventListener('scroll', showTrendingPage, false);
+window.addEventListener('scroll', infiniteScroll, false);
 
 function navigator() {
     console.log({ location });
     if(infiniteScroll){
-        window.removeEventListener('scroll',{
-            passive:true
-        });
+        window.removeEventListener('scroll', infiniteScroll, {passive:false});
+        infiniteScroll=undefined;
     }
     const routes = {
         '#trends=': trendsPage,
@@ -41,11 +40,14 @@ function navigator() {
     for (const [key, page] of Object.entries(routes)) {
         if (location.hash.startsWith(key)) {
             page();
-            return;
+             if(infiniteScroll){
+                window.addEventListener('scroll', infiniteScroll, {passive:false});
+            }
+        return;
         }
     }
-    homePage();
-   } 
+    homePage();    
+} 
 
 // Funciones para cada evento
 function homePage() {
