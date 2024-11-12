@@ -1,3 +1,4 @@
+let maxPage;
 let page = 1;
 let infiniteScroll;
 
@@ -111,6 +112,8 @@ function searchPage() {
     //['#search', 'loBuscado'] 
     const [_, query] = location.hash.split('=');
     getMoviesBySearch(query);
+
+    infiniteScroll = getPaginatedMoviesBySearch(query);
 }
 
 function movieDetailsPage() {
@@ -155,4 +158,5 @@ function categoriesPage() {
     headerCategoryTitle.innerHTML= decodeURIComponent( categoryName);
     window.scroll(0,0);
     getMoviesByCategory(categoryId);
+    infiniteScroll = getPaginatedMoviesByCategory(categoryId);
 }
