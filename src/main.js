@@ -19,7 +19,8 @@ const lazyLoader = new IntersectionObserver(entries => {
       img.src = img.getAttribute('data-src'); // Asigna el atributo 'src' real
       img.removeAttribute('data-src'); // Elimina 'data-src' para evitar futuras observaciones
       lazyLoader.unobserve(img); // Deja de observar la imagen cargada
-    //   console.log(`Imagen cargada: ${img.src}`);
+    //Muestra la URL de la imagen
+    //    console.log(`Imagen cargada: ${img.src}`);
     }
  });
 });
@@ -35,20 +36,35 @@ function createMovies(movies, container, {lazyLoad = true, clean = true } = {},)
     billboard += `
       <div class="movie-container" data-id="${movie.id}">
         <img
-         data-src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
-          class="movie-img"
-          alt="${movie.title}" />
-      </div>`;
+        data-src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
+        class="movie-img"
+        alt="${movie.title}" />
+        <button class="movie-btn favorite-btn" data-favorite-btn="${movie.id}">
+        </button>
+          </div>`;
   });
 
   container.innerHTML = billboard;
 
   const movieContainers = container.querySelectorAll('.movie-container');
   movieContainers.forEach(movieContainer => {
-    movieContainer.addEventListener('click', () => {
+    movieContainer.addEventListener('click', (e) => {
+        const isFavoriteBtn = e.target.closest('[data-favorite-btn]');
+        if(isFavoriteBtn){
+            return;
+        };
       const movieId = movieContainer.getAttribute('data-id');
       location.hash = '#movie=' + movieId;
     });
+  });
+
+  const movieBtns = container.querySelectorAll('[data-favorite-btn]');
+  movieBtns.forEach(movieBtn =>{
+    movieBtn.addEventListener('click', (e) =>{
+    e.stopPropagation();
+    // console.log('Agregar pelicula');
+    movieBtn.classList.toggle('movie-btn--liked');
+  });
   });
 
 if (lazyLoad) {
@@ -109,6 +125,7 @@ async function  getMoviesByCategory(id) {
     console.log(maxPage);
     createMovies(movies, genericSection, {lazyLoad: true});
 }
+
 function getPaginatedMoviesByCategory(id) {
     return async function () {
         const {
@@ -149,6 +166,7 @@ async function  getMoviesBySearch(query) {
     console.log(maxPage);
     createMovies(movies, genericSection);
 }
+
 function getPaginatedMoviesBySearch(query) {
     return async function () {
         const {

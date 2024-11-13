@@ -5,7 +5,7 @@ const trendingPreviewSection = document.querySelector('#trendingPreview');
 const categoriesPreviewSection = document.querySelector('#categoriesPreview');
 const genericSection = document.querySelector('#genericList');
 const movieDetailSection = document.querySelector('#movieDetail');
-
+const likedSection = document.querySelector('#liked');
 //List container
 
 const searchForm = document.querySelector('#searchForm');
