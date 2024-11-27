@@ -62,12 +62,13 @@ function homePage() {
     searchForm.classList.remove('inactive');
     trendingPreviewSection.classList.remove('inactive');
     categoriesPreviewSection.classList.remove('inactive');
+    likedSection.classList.remove('inactive');
     genericSection.classList.add('inactive');
     movieDetailSection.classList.add('inactive');
-    likedSection.classList.remove('inactive');
 
     getTrendingMoviesPreview();
     getCategoriesPreview();
+    getLikedMovies();
 
     // const childrenCategoriesPreview = Array.from(categoriesPreviewList.children);
     // if(!childrenCategoriesPreview.length){
@@ -87,10 +88,10 @@ function trendsPage() {
     headerCategoryTitle.classList.remove('inactive');
     searchForm.classList.add('inactive');
     trendingPreviewSection.classList.add('inactive');
+    likedSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
-    likedSection.classList.add('inactive');
     headerCategoryTitle.innerHTML= 'Tendencias';
     getTrendingMovies();
     infiniteScroll = showTrendingPage;
@@ -108,9 +109,9 @@ function searchPage() {
     searchForm.classList.remove('inactive');
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
+    likedSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
-    likedSection.classList.add('inactive');
 
     //['#search', 'loBuscado'] 
     const [_, query] = location.hash.split('=');
@@ -131,9 +132,9 @@ function movieDetailsPage() {
     searchForm.classList.add('inactive');
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
+    likedSection.classList.add('inactive');
     genericSection.classList.add('inactive');
     movieDetailSection.classList.remove('inactive');
-    likedSection.classList.add('inactive');
      //['#movie', 'ID 93848'] 
     const [_, movieId] = location.hash.split('=');
     getMovieById(movieId);
@@ -151,9 +152,9 @@ function categoriesPage() {
     searchForm.classList.add('inactive');
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
+    likedSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
-    likedSection.classList.add('inactive');
 
     //['#category', 'id-name'] 
     const [_, categoryData] = location.hash.split('=');

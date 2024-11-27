@@ -9,31 +9,31 @@ const api=axios.create({
         'language': 'es',
     }
 })
-function likedMovieList(){
-    const item= JSON.parse(localStorage.getItem('liked_movies'));
-    let movies;
-    if(item){
-        movies = item;
-    } else {
-        movies={};
-    }
-    return movies;
+function likedMoviesList(){
+    const item =localStorage.getItem('liked_movies');
+    return item ? JSON.parse(item) : {};
 }
 
-function likeMovie(movie){
-    const likedMovies = likedMovieList();
-    //movie.id
-    if(likedMovies[movie.id]){
-        likedMovies[movie.id] = undefined;
-        // console.log('La pelicula ya estaba en LS, deberiamos eliminarla')
-        //Removerla de LS
-    } else {
-        likedMovies[movie.id] = movie;
-        // console.log('La pelicula no ya estaba en LS, deberiamos agregarla')
-        //agregar la peli a LS
-    }
+function likeMovie(movie) {
+    // movie.id
+    if (!movie || !movie.id) {
+        console.error('El objeto movie es inválido o no tiene un id');
+        return;
+      }
+    console.log(movie);
+
+ const likedMovies = likedMoviesList();
+  console.log("Peliculas guardadas", likedMovies);
+  if (likedMovies[movie.id]) {
+    delete likedMovies[movie.id];
+  } else {
+    likedMovies[movie.id] = movie;
+  }
+    // console.log('MOVIE', movie);
     localStorage.setItem('liked_movies', JSON.stringify(likedMovies));
-}
+    // console.log(likedMoviesList());
+    // return likedMoviesList();
+  }
 //Utils
 
 const lazyLoader = new IntersectionObserver(entries => {
@@ -50,7 +50,7 @@ const lazyLoader = new IntersectionObserver(entries => {
  });
 });
 
-function createMovies(movies, container, {lazyLoad = true, clean = true } = {},) {
+function createMovies(movies, container, {lazyLoad = true, clean = true } = {}) {
   if (clean) {
     container.innerHTML = "";
   }
@@ -58,50 +58,56 @@ function createMovies(movies, container, {lazyLoad = true, clean = true } = {},)
   let billboard = '';
   movies.forEach(movie => {
     if (!movie.poster_path) return;
+    
     billboard += `
       <div class="movie-container" data-id="${movie.id}">
         <img
         data-src="https://image.tmdb.org/t/p/w300/${movie.poster_path}"
         class="movie-img"
         alt="${movie.title}" />
-        <button class="movie-btn favorite-btn" data-favorite-btn="${movie.id}">
+        <button class="movie-btn"  data-favorite-btn="${movie.id}">
         </button>
         </div>`;
         });
         
         container.innerHTML = billboard;
-
-        const movieContainers = container.querySelectorAll('.movie-container');
-        movieContainers.forEach(movieContainer => {
+        
+    const movieContainers = container.querySelectorAll('.movie-container');
+    movieContainers.forEach(movieContainer => {
         movieContainer.addEventListener('click', (e) => {
-        const isFavoriteBtn = e.target.closest('[data-favorite-btn]');
+         const isFavoriteBtn = e.target.closest('[data-favorite-btn]');
         if(isFavoriteBtn){
-        return;
+            console.log("IsFavorite Btn", isFavoriteBtn);
+            return;
         };
-        const movieId = movieContainer.getAttribute('data-id');
-        location.hash = '#movie=' + movieId;
+            const movieId = movieContainer.getAttribute('data-id');
+            location.hash = '#movie=' + movieId;
+            console.log('MovieID', movieId);
+        });
+            
     });
+    
+    const movieBtns = container.querySelectorAll('[data-favorite-btn]');
+    movieBtns.forEach(movieBtn =>{
+        const movieId = movieBtn.getAttribute('data-favorite-btn');
+        const movie = movies.find(m => m.id == movieId);
 
-  });
+        movieBtn.addEventListener('click', (e) =>{
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            movieBtn.classList.toggle('movie-btn--liked');
+            likeMovie(movie);
+        });
+    });          
 
-  const movieBtns = container.querySelectorAll('[data-favorite-btn]');
-  movieBtns.forEach(movieBtn =>{
-    movieBtn.addEventListener('click', (e) =>{
-        e.stopPropagation();
-        // console.log('Agregar pelicula');
-        movieBtn.classList.toggle('movie-btn--liked');
-        likeMovie(movies);
-        console.log("Peliculas likeadas",likeMovie(movies));
-    });
-});
-if (lazyLoad) {
-    const images = container.querySelectorAll('.movie-img');
-    images.forEach((img) => {
-      // Observar cada imagen para cargarla perezosamente
-      lazyLoader.observe(img);
-    });
-    // console.log(images);
-}
+    if (lazyLoad) {
+        const images = container.querySelectorAll('.movie-img');
+        images.forEach((img) => {
+            // Observar cada imagen para cargarla perezosamente
+            lazyLoader.observe(img);
+        });
+        // console.log(images);
+    }
  // Reiniciar scroll al tope
  document.body.scrollTop = 0;
  document.documentElement.scrollTop = 0;
@@ -288,4 +294,12 @@ async function  getRelatesMovieById(id) {
 
     createMovies(relatedMovies, relatedMoviesContainer);
     window.scroll(0,0);
+}
+
+function getLikedMovies(){
+    const likedMovies= likedMoviesList();
+    const moviesArray = Object.values(likedMovies);
+
+    createMovies(moviesArray, likedMoviesListArticle, {lazyLoad: true, clean: true });
+    console.log(likedMovies);
 }
