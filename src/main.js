@@ -9,8 +9,10 @@ const api=axios.create({
         'language': 'es',
     }
 })
+
 function likedMoviesList(){
-    const item =localStorage.getItem('liked_movies');
+    //Devuelve el array de peliculas que se tengan guardadas en Local Storage//
+    const item = localStorage.getItem('liked_movies');
     return item ? JSON.parse(item) : {};
 }
 
@@ -82,7 +84,7 @@ function createMovies(movies, container, {lazyLoad = true, clean = true } = {}) 
         };
             const movieId = movieContainer.getAttribute('data-id');
             location.hash = '#movie=' + movieId;
-            console.log('MovieID', movieId);
+            // console.log('MovieID', movieId);
         });
             
     });
@@ -91,12 +93,13 @@ function createMovies(movies, container, {lazyLoad = true, clean = true } = {}) 
     movieBtns.forEach(movieBtn =>{
         const movieId = movieBtn.getAttribute('data-favorite-btn');
         const movie = movies.find(m => m.id == movieId);
-
+        likedMoviesList()[movie.id] && movieBtn.classList.add('movie-btn--liked');
         movieBtn.addEventListener('click', (e) =>{
             e.stopPropagation();
             e.stopImmediatePropagation();
             movieBtn.classList.toggle('movie-btn--liked');
             likeMovie(movie);
+            getLikedMovies();
         });
     });          
 
@@ -297,7 +300,7 @@ async function  getRelatesMovieById(id) {
 }
 
 function getLikedMovies(){
-    const likedMovies= likedMoviesList();
+    const likedMovies = likedMoviesList();
     const moviesArray = Object.values(likedMovies);
 
     createMovies(moviesArray, likedMoviesListArticle, {lazyLoad: true, clean: true });
