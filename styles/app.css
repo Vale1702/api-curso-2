@@ -26,11 +26,11 @@
 }
 
 html {
-  background:linear-gradient(90deg, rgba(7, 127, 199, 1) 19.27%, rgba(0, 0, 0) 104.17%);
+  background-color: var(--blue-medium-3);
 }
 
 body {
-  background:linear-gradient(180deg, rgb(10, 157, 248) 19.27%, rgba(0, 0, 0) 104.17%);
+  background:linear-gradient(180deg, rgb(10, 157, 248) -15.73%, rgba(0, 0, 0) 28.17%);
   /* background-color: var(--blue-medium-3); */
   font-family: var(--font-family-text);
   font-weight: var(--font-weight-text1);
@@ -55,7 +55,7 @@ h1, h2 {
 
 h2 {
   font-size: 18px;
-  color: var(--blue-dark-1);
+  color: var(--blue-medium-1);
   font-weight: var(--font-weight-title2);
 }
 

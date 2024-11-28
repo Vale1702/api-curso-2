@@ -23,7 +23,7 @@ function likeMovie(movie) {
         return;
       }
     console.log(movie);
-
+     
  const likedMovies = likedMoviesList();
   console.log("Peliculas guardadas", likedMovies);
   if (likedMovies[movie.id]) {
@@ -33,6 +33,8 @@ function likeMovie(movie) {
   }
     // console.log('MOVIE', movie);
     localStorage.setItem('liked_movies', JSON.stringify(likedMovies));
+    getTrendingMoviesPreview();
+    getLikedMovies();
     // console.log(likedMoviesList());
     // return likedMoviesList();
   }
@@ -99,7 +101,6 @@ function createMovies(movies, container, {lazyLoad = true, clean = true } = {}) 
             e.stopImmediatePropagation();
             movieBtn.classList.toggle('movie-btn--liked');
             likeMovie(movie);
-            getLikedMovies();
         });
     });          
 
@@ -302,7 +303,8 @@ async function  getRelatesMovieById(id) {
 function getLikedMovies(){
     const likedMovies = likedMoviesList();
     const moviesArray = Object.values(likedMovies);
-
+     likedMoviesListArticle.innerHTML='';
+    !moviesArray.length && likedSection.classList.add('inactive');
     createMovies(moviesArray, likedMoviesListArticle, {lazyLoad: true, clean: true });
     console.log(likedMovies);
 }
