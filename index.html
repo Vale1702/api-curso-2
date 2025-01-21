@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+<head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,6 +21,7 @@
             <button id="searchBtn">🔍</button>
         </form>
     </header>
+
     <section id="trendingPreview" class="trendingPreview-container">
         <div class="trendingPreview-header">
           <h2 class="trendingPreview-title">Tendencias</h2>
@@ -29,67 +29,75 @@
         </div>
     
         <article class="trendingPreview-movieList">
-          <!-- <div class="movie-container">
-            <img
-              src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-              class="movie-img"
-              alt="Nombre de la película"/>
-          </div> -->
+          <div class="movie-container movie-container--loading"></div>
+          <div class="movie-container movie-container--loading"></div>
+          <div class="movie-container movie-container--loading"></div>
+          <div class="movie-container movie-container--loading">
+            <!-- <img src="./" class="movie-img"/> -->
+          </div>
         </article>
-      </section>
+        <div id="load-more-trigger" class="load-more-trigger"></div>
+    </section>
     
-      <section id="categoriesPreview" class="categoriesPreview-container">
+    <section id="categoriesPreview" class="categoriesPreview-container">
         <h2 class="categoriesPreview-title">Categorías</h2>
     
-        <article class="categoriesPreview-list">
-          <!-- <div class="category-container">
-            <h3 id="id28" class="category-title">Romance</h3>
-          </div> -->
-        </article>
-      </section>
-    
-      <section id="genericList" class="genericList-container inactive">
-        <div class="movie-container">
-          <img
-            src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-            class="movie-img"
-            alt="Nombre de la película"/>
-        </div>
-    
-        <div class="movie-container">
-          <img
-            src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-            class="movie-img"
-            alt="Nombre de la película"/>
-        </div>
-    
-        <div class="movie-container">
-          <img
-            src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-            class="movie-img"
-            alt="Nombre de la película"/>
-        </div>
-      </section>
-    
-      <section id="movieDetail" class="movieDetail-container inactive">
-        <h1 class="movieDetail-title">Deadpool</h1>
+    <article class="categoriesPreview-list">
+      <div class="category-container category-container--loading"></div>
+      <div class="category-container category-container--loading"></div>
+      <div class="category-container category-container--loading"></div>
+        <div class="category-container category-container--loading">
+            <!-- <h3 id="id28" class="category-title"></h3> -->
+          </div>
+    </article>
+    </section>
 
-        <span class="movieDetail-score">7.6</span>
+    <section id="liked" class="liked-container">
+      <div class="liked-header">
+        <h2 class="liked-title">Películas Favoritas</h2>
+      </div>
+      <article class="liked-movieList">
+        <div class="movie-container">
+          <img src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" class="movie-img"/>
+        </div>
+        <!-- <div class="movie-container">
+          <img src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" class="movie-img"/>
+        </div>
+        <div class="movie-container">
+          <img src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" class="movie-img"/>
+        </div> -->
+      </article>
+     
+    </section>
+    
+    <section id="genericList" class="genericList-container inactive">
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading"></div>
+        <div class="movie-container movie-container--loading">
+          <!-- <img
+            src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
+            class="movie-img"/>  -->
+        </div>
+    </section>
+    
+    <section id="movieDetail" class="movieDetail-container inactive">
+        <h1 class="movieDetail-title">
+          <!-- Deadpool -->
+        </h1>
+        <span class="movieDetail-score">
+          <!-- 7.6 -->
+        </span>
         <p class="movieDetail-description">
-          Wisecracking mercenary Deadpool battles the evil and powerful Cable and other bad guys to save a boy's life.
+          <!-- Wisecracking mercenary Deadpool battles the evil and powerful Cable and other bad guys to save a boy's life. -->
         </p>
     
       <article class="categories-list">
-          <div class="category-container">
-            <h3 id="id28" class="category-title">Romance</h3>
-          </div>
-    
-          <div class="category-container">
-            <h3 id="id16" class="category-title">Drama</h3>
-          </div>
-    
-          <div class="category-container">
-            <h3 id="id14" class="category-title">Acción</h3>
+          <div class="category-container category-container--loading"></div>
+          <div class="category-container category-container--loading"></div>
+          <div class="category-container category-container--loading"></div>
+          <div class="category-container category-container--loading">
+            <!-- <h3 id="id28" class="category-title">Romance</h3> -->
           </div>
       </article>
     
@@ -97,31 +105,20 @@
           <h2 class="relatedMovies-title">Películas similares</h2>
     
           <div class="relatedMovies-scrollContainer">
-            <div class="movie-container">
-              <img
+            <div class="movie-container movie-container--loading"></div>
+            <div class="movie-container movie-container--loading"></div>
+            <div class="movie-container movie-container--loading"></div>
+            <div class="movie-container movie-container--loading">
+              <!-- <img
                 src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
                 class="movie-img"
-                alt="Nombre de la película"/>
-            </div>
-            
-          <div class="movie-container">
-              <img
-                src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-                class="movie-img"
-                alt="Nombre de la película"/>
+                alt="Nombre de la película"/> -->
+              </div>
           </div>
-            
-          <div class="movie-container">
-              <img
-                src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg"
-                class="movie-img"
-                alt="Nombre de la película"/>
-          </div>
-        </div>
       </article>
-      </section>
+    </section>
     
-      <footer>Hecho con amor, Mizuky</footer>
+    <footer>Hecho con amor, Mizuky</footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./src/apik.js"></script>
     <script src="./src/nodes.js"></script>

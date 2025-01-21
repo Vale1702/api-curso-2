@@ -1,10 +1,14 @@
+let maxPage;
+let page = 1;
+let infiniteScroll;
+
 searchFormBtn.addEventListener('click', () => {
     location.hash='#search='+ searchFormInput.value;
     searchFormInput.value='';
 });
 
 trendingBtn.addEventListener('click', () => {
-    location.hash='#trends';
+    location.hash='#trends=';
 });
 
 arrowBtn.addEventListener('click', () =>{
@@ -18,29 +22,33 @@ arrowBtn.addEventListener('click', () =>{
 
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
+window.addEventListener('scroll', infiniteScroll, false);
 
 function navigator() {
     console.log({ location });
-    // Definimos un objeto 'routes' donde cada clave representa una parte del hash
-    // y su valor es el mensaje que queremos mostrar en la consola.
+    if(infiniteScroll){
+        window.removeEventListener('scroll', infiniteScroll, {passive:false});
+        infiniteScroll=undefined;
+    }
     const routes = {
-        '#trends': trendsPage,
+        '#trends=': trendsPage,
         '#search=': searchPage,
         '#movie=': movieDetailsPage,
-        '#category=':categoriesPage,
+        '#category=': categoriesPage,
         '#home=': homePage
     };
-    // Iteramos sobre las claves y valores del objeto 'routes'
+
     for (const [key, page] of Object.entries(routes)) {
-        // Verificamos si el hash de la ubicación actual comienza con una de las claves
         if (location.hash.startsWith(key)) {
-            // Si coincide, mostramos el valor correspondiente (mensaje) en la consola
             page();
-            return;
-        } 
+             if(infiniteScroll){
+                window.addEventListener('scroll', infiniteScroll, {passive:false});
+            }
+        return;
+        }
     }
-    homePage();
-}
+    homePage();    
+} 
 
 // Funciones para cada evento
 function homePage() {
@@ -52,14 +60,15 @@ function homePage() {
     headerTitle.classList.remove('inactive');
     headerCategoryTitle.classList.add('inactive');
     searchForm.classList.remove('inactive');
-
     trendingPreviewSection.classList.remove('inactive');
     categoriesPreviewSection.classList.remove('inactive');
+    likedSection.classList.remove('inactive');
     genericSection.classList.add('inactive');
     movieDetailSection.classList.add('inactive');
 
     getTrendingMoviesPreview();
     getCategoriesPreview();
+    getLikedMovies();
 
     // const childrenCategoriesPreview = Array.from(categoriesPreviewList.children);
     // if(!childrenCategoriesPreview.length){
@@ -78,13 +87,14 @@ function trendsPage() {
     headerTitle.classList.add('inactive');
     headerCategoryTitle.classList.remove('inactive');
     searchForm.classList.add('inactive');
-
     trendingPreviewSection.classList.add('inactive');
+    likedSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
     headerCategoryTitle.innerHTML= 'Tendencias';
     getTrendingMovies();
+    infiniteScroll = showTrendingPage;
 }
 
 function searchPage() {
@@ -97,33 +107,34 @@ function searchPage() {
     headerTitle.classList.add('inactive');
     headerCategoryTitle.classList.add('inactive');
     searchForm.classList.remove('inactive');
-
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
+    likedSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
 
     //['#search', 'loBuscado'] 
     const [_, query] = location.hash.split('=');
     getMoviesBySearch(query);
+
+    infiniteScroll = getPaginatedMoviesBySearch(query);
 }
 
 function movieDetailsPage() {
     console.log('Movies!!');
 
     headerSection.classList.add('header-container--long');
-    // headerSection.style.background = ' ';
+    headerSection.style.background = '';
     arrowBtn.classList.remove('inactive');
     arrowBtn.classList.add('header-arrow--white')
     headerTitle.classList.add('inactive');
     headerCategoryTitle.classList.add('inactive');
     searchForm.classList.add('inactive');
-
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
+    likedSection.classList.add('inactive');
     genericSection.classList.add('inactive');
     movieDetailSection.classList.remove('inactive');
-
      //['#movie', 'ID 93848'] 
     const [_, movieId] = location.hash.split('=');
     getMovieById(movieId);
@@ -133,15 +144,15 @@ function categoriesPage() {
     console.log('Categories!!');
 
     headerSection.classList.remove('header-container--long');
-    headerSection.style.background = ' ';
+    headerSection.style.background = '';
     arrowBtn.classList.remove('inactive');
     arrowBtn.classList.add('header-arrow--white');
     headerTitle.classList.add('inactive');
     headerCategoryTitle.classList.remove('inactive');
     searchForm.classList.add('inactive');
-
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
+    likedSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
 
@@ -152,5 +163,5 @@ function categoriesPage() {
     headerCategoryTitle.innerHTML= decodeURIComponent( categoryName);
     window.scroll(0,0);
     getMoviesByCategory(categoryId);
+    infiniteScroll = getPaginatedMoviesByCategory(categoryId);
 }
-
