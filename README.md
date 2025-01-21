@@ -52,8 +52,7 @@ Aplicar técnicas de diseño CSS para una experiencia de usuario agradable.
 
 Implementar características interactivas como favoritos y búsqueda.
 
-🌐 Contacto
 
-¿Tienes alguna sugerencia o pregunta? ¡Contáctame!
 
-Portafolio: 
+Portafolio: https://vale1702.github.io/api-curso-2/
+
