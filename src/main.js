@@ -303,7 +303,7 @@ async function  getRelatesMovieById(id) {
 function getLikedMovies(){
     const likedMovies = likedMoviesList();
     const moviesArray = Object.values(likedMovies);
-     likedMoviesListArticle.innerHTML='';
+    likedMoviesListArticle.innerHTML='';
     !moviesArray.length && likedSection.classList.add('inactive');
     createMovies(moviesArray, likedMoviesListArticle, {lazyLoad: true, clean: true });
     console.log(likedMovies);
