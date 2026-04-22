@@ -1,58 +1,41 @@
-🎬 MovieApp
+# 🎬 Movie App
 
-¡Bienvenido a MovieApp! Una aplicación interactiva desarrollada con JavaScript y CSS, donde puedes explorar películas, gestionar tus favoritas y buscar contenido fácilmente.
+Aplicación web desarrollada con JavaScript que consume una API de películas para mostrar contenido trending, categorías y detalles individuales.
 
-🌟 Funcionalidades
+🔗 **Demo:** https://vale1702.github.io/api-curso-2/  
+💻 **Repositorio:** https://github.com/Vale1702/api-curso-2
 
-Dar Like: Marca tus películas favoritas con un "Me gusta".
+---
 
-Guardar Favoritos: Almacena tus películas favoritas para acceder a ellas en cualquier momento.
+## 🌟 Funcionalidades
 
-Búsqueda Inteligente: Encuentra películas rápidamente a través del buscador integrado.
+- 🔍 Búsqueda de películas en tiempo real
+- 🎬 Visualización de películas trending
+- 📂 Exploración por categorías
+- ❤️ Sistema de favoritos (almacenados en localStorage)
+- 🔄 Navegación dinámica entre vistas
+- 🖼️ Lazy loading de imágenes para mejorar rendimiento
+- ♾️ Infinite scroll en secciones de películas
 
-Explora por Categorías: Navega por diferentes géneros y encuentra tus próximas películas favoritas.
+---
 
-🛠️ Tecnologías Usadas
+## 🛠️ Tecnologías
 
-JavaScript: Lógica principal de la aplicación.
+- JavaScript (Vanilla)
+- CSS
+- API REST (The Movie Database API)
 
-CSS: Diseño responsivo y atractivo.
+---
 
-Node.js: Gestor de rutas para manejar las solicitudes al servidor.
+## 📸 Vista previa
 
-API REST: Consumo de datos dinámicos para mostrar películas, categorías y resultados de búsqueda.
+![MovieApp](./assets/appMovie.png)
+![Favoritos](./assets/favoritos.png)
 
-📂 Estructura del Proyecto
+---
 
-MovieApp/
-│
-├── navigator/           # Archivos estáticos como HTML, CSS y JavaScript.
-├── nodes.js/            # Configuración de rutas con Node.js.
-├── index.js             # Archivo principal para inicializar el servidor.
-└── package.json         # Configuración del proyecto y dependencias.
+## 🚀 Cómo ejecutar el proyecto
 
-🚀 Cómo Probar la Aplicación
-
-Clona este repositorio:
-
+1. Clona el repositorio:
+```bash
 git clone https://github.com/Vale1702/api-curso-2.git
-
-![MovieApp] (assets/appMovie.png)
-![Favoritos] (assets/favoritos.png)
-
-Abre el archivo index.html en tu navegador favorito.
-
-💡 Aprendizajes
-
-Este proyecto me permitió:
-
-Mejorar mis habilidades en JavaScript trabajando con DOM, eventos y uso de Api Rest.
-
-Aplicar técnicas de diseño CSS para una experiencia de usuario agradable.
-
-Implementar características interactivas como favoritos y búsqueda.
-
-
-
-Portafolio: https://vale1702.github.io/api-curso-2/
-
