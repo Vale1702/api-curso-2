@@ -48,11 +48,11 @@ Abre el archivo index.html en tu navegador
 
 En este proyecto trabajé en:
 
-Consumo de APIs y manejo de datos dinámicos
-Manipulación del DOM con JavaScript
-Optimización de carga con lazy loading
-Implementación de infinite scroll
-Manejo de estado con localStorage
+- Consumo de APIs y manejo de datos dinámicos
+- Manipulación del DOM con JavaScript
+- Optimización de carga con lazy loading
+- Implementación de infinite scroll
+- Manejo de estado con localStorage
 
 ## 🔧 Próximas mejoras
 - 📱 Versión responsive
