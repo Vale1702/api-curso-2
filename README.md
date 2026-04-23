@@ -39,3 +39,22 @@ Aplicación web desarrollada con JavaScript que consume una API de películas pa
 1. Clona el repositorio:
 ```bash
 git clone https://github.com/Vale1702/api-curso-2.git
+```
+Abre el archivo index.html en tu navegador
+
+
+
+##  💡 Aprendizajes
+
+En este proyecto trabajé en:
+
+Consumo de APIs y manejo de datos dinámicos
+Manipulación del DOM con JavaScript
+Optimización de carga con lazy loading
+Implementación de infinite scroll
+Manejo de estado con localStorage
+
+## 🔧 Próximas mejoras
+- 📱 Versión responsive
+- 🎨 Rediseño con Tailwind CSS
+- ⚡ Mejora de rendimiento y UX
